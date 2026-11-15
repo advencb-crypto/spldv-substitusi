@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bahan Ajar Interaktif: Mendalami Metode Substitusi SPLDV - Ibu Lusia Adven Ningrum</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- KaTeX untuk Notasi Matematika -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        body.presentation-mode {
+            font-size: 112%;
+        }
+        body.presentation-mode .max-w-7xl {
+            max-width: 96%;
+        }
+        .fade-in {
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .tab-content { display: block !important; page-break-after: always; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-teal-200 selection:text-teal-950">
+
+    <!-- HEADER & IDENTITAS GURU -->
+    <header class="bg-gradient-to-r from-teal-900 via-emerald-900 to-indigo-950 text-white shadow-lg relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+                        <circle cx="3" cy="3" r="1.5" fill="white" />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#dots)" />
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+            <div class="space-y-2">
+                <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 px-3.5 py-1 rounded-full text-xs font-semibold tracking-wide text-emerald-100">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                    MODUL PENDALAMAN • SERI LANJUTAN SPLDV
+                </div>
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight">
+                    Eksplorasi Mendalam: <span class="text-amber-300">Metode Substitusi SPLDV</span>
+                </h1>
+                <p class="text-teal-100/90 text-sm sm:text-base max-w-2xl">
+                    Memahami logika "mengganti" variabel melalui analogi nyata, simulasi aljabar interaktif, dan latihan terbimbing langkah demi langkah.
+                </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                <div class="flex items-center gap-3.5 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-3 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-600 text-white flex items-center justify-center font-extrabold text-lg shadow-md shrink-0">
+                        LAN
+                    </div>
+                    <div>
+                        <p class="text-[11px] uppercase tracking-wider text-amber-200 font-semibold">Guru Matematika</p>
+                        <p class="text-base font-bold text-white leading-snug">Lusia Adven Ningrum</p>
+                        <p class="text-xs text-teal-200">Pendekatan Pemantik Konsep</p>
+                    </div>
+                </div>
+
+                <div class="flex sm:flex-col gap-2 no-print">
+                    <button onclick="togglePresentationMode()" id="btn-presentasi" class="flex-1 inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition cursor-pointer">
+                        <span>🖥️ Mode Proyektor</span>
+                    </button>
+                    <button onclick="window.print()" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold px-3.5 py-2 rounded-xl shadow transition cursor-pointer">
+                        <span>🖨️ Cetak LKS</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGASI MODUL -->
+    <nav class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 shadow-xs no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex overflow-x-auto py-3 gap-2 sm:gap-3">
+                <button onclick="switchTab('pemantik')" id="nav-pemantik" class="nav-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition-all bg-teal-700 text-white shadow-sm cursor-pointer">
+                    <span class="bg-white/20 px-2 py-0.5 rounded-md text-xs">1</span>
+                    <span>Analogi Pemantik Substitusi</span>
+                </button>
+                <button onclick="switchTab('anatomi')" id="nav-anatomi" class="nav-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer">
+                    <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-md text-xs">2</span>
+                    <span>Strategi Memilih Variabel & 3 Tipe Soal</span>
+                </button>
+                <button onclick="switchTab('lab')" id="nav-lab" class="nav-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer">
+                    <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-md text-xs">3</span>
+                    <span>Lab Interaktif: Susun Langkah Substitusi</span>
+                </button>
+                <button onclick="switchTab('jebakan')" id="nav-jebakan" class="nav-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer">
+                    <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-md text-xs">4</span>
+                    <span>Detektif Kesalahan & Latihan Terbimbing</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- =================================================================== -->
+        <!-- TAB 1: ANALOGI PEMANTIK SUBSTITUSI                                  -->
+        <!-- =================================================================== -->
+        <section id="tab-pemantik" class="tab-content fade-in space-y-8">
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200/80 px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">⚖️</span>
+                        <div>
+                            <h2 class="text-lg sm:text-xl font-extrabold text-amber-950">Mengapa Disebut "Substitusi"? (Analogi Timbangan & Paket Belanja)</h2>
+                            <p class="text-xs text-amber-800">Memahami makna kata <em>Substitusi</em> = Penggantian Nilai yang Setara</p>
+                        </div>
+                    </div>
+                    <span class="bg-amber-200/80 text-amber-950 text-xs font-bold px-3 py-1 rounded-full">Jembatan Konkret ke Abstrak</span>
+                </div>
+
+                <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-4">
+                        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+                            Dalam sepak bola, pemain <strong>substitusi</strong> adalah pemain pengganti yang masuk menggantikan pemain lain di lapangan. Dalam aljabar, <strong>Metode Substitusi</strong> berarti <strong>mengganti salah satu variabel dengan bentuk aljabar lain yang nilainya setara</strong>.
+                        </p>
+
+                        <!-- Cerita Pemantik -->
+                        <div class="bg-teal-50/70 border border-teal-200 rounded-2xl p-5 space-y-3">
+                            <h3 class="font-extrabold text-teal-950 text-base flex items-center gap-2">
+                                <span>🧺 Kasus Pemantik: Paket Buah di Pasar Beringharjo</span>
+                            </h3>
+                            <p class="text-sm text-slate-700 leading-relaxed">
+                                Ibu Lusia membeli dua paket buah untuk acara keluarga:
+                            </p>
+                            <ul class="space-y-2 text-sm">
+                                <li class="bg-white p-3 rounded-xl border border-teal-100 flex items-start gap-2.5">
+                                    <span class="font-bold text-teal-700">Informasi 1:</span>
+                                    <span>Harga <strong>1 kotak Stroberi ($y$)</strong> ternyata sama persis dengan harga <strong>2 bungkus Jeruk ($2x$) ditambah Rp3.000</strong>. &rarr; <code class="font-mono font-bold text-teal-800">$y = 2x + 3.000$</code></span>
+                                </li>
+                                <li class="bg-white p-3 rounded-xl border border-indigo-100 flex items-start gap-2.5">
+                                    <span class="font-bold text-indigo-700">Informasi 2:</span>
+                                    <span>Ketika Ibu Lusia membeli <strong>3 bungkus Jeruk ($3x$)</strong> dan <strong>1 kotak Stroberi ($y$)</strong>, kasir meminta bayaran total <strong>Rp28.000</strong>. &rarr; <code class="font-mono font-bold text-indigo-800">$3x + y = 28.000$</code></span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-100 rounded-xl p-4 border-l-4 border-amber-500 text-sm text-slate-700">
+                            <strong>Pertanyaan Pemantik untuk Siswa:</strong> Pada Informasi 2 terdapat dua jenis buah berbeda ($x$ dan $y$) sehingga kita tidak bisa langsung membaginya. Bagaimana cara mengubah belanjaan di Informasi 2 agar semuanya dinyatakan dalam satuan <strong>Jeruk ($x$) saja</strong>?
+                        </div>
+                    </div>
+
+                    <!-- Simulasi Visual Penggantian Variabel -->
+                    <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl p-6 shadow-xl space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-amber-400">Simulasi Visual Substitusi</span>
+                            <span class="text-xs bg-slate-800 px-2.5 py-1 rounded-lg text-slate-300">Klik tombol simulasi</span>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="p-3.5 bg-slate-800 rounded-xl border border-slate-700 text-xs sm:text-sm font-mono">
+                                <p class="text-slate-400 text-xs mb-1">Persamaan Belanja Total:</p>
+                                <div id="visual-eq-box" class="text-base sm:text-lg font-bold text-center py-2">
+                                    $3x + \color{#fbbf24}{\boxed{y}} = 28.000$
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 bg-teal-950/70 rounded-xl border border-teal-700/60 text-xs space-y-1">
+                                <p class="text-teal-300 font-bold">Nilai Setara yang Siap Menggantikan $y$:</p>
+                                <p class="font-mono text-sm text-white">$\color{#fbbf24}{y} = \color{#34d399}{(2x + 3.000)}$</p>
+                            </div>
+
+                            <button onclick="triggerVisualSubstitution()" id="btn-sim-sub" class="w-full py-3 px-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold rounded-xl text-xs sm:text-sm shadow transition cursor-pointer">
+                                🔄 Lakukan Substitusi: Ganti Kotak $y$!
+                            </button>
+
+                            <div id="visual-sub-steps" class="hidden space-y-2 pt-2 border-t border-slate-700 text-xs sm:text-sm font-mono">
+                                <p class="text-emerald-300">1. Setelah $y$ diganti $(2x + 3.000)$:</p>
+                                <p class="bg-slate-800 p-2 rounded-lg">$3x + \color{#34d399}{(2x + 3.000)} = 28.000$</p>
+                                <p class="text-slate-300 text-xs font-sans">Perhatikan! Sekarang hanya ada <strong>SATU variabel ($x$)</strong>!</p>
+                                <p class="bg-slate-800 p-2 rounded-lg">$5x + 3.000 = 28.000 \implies 5x = 25.000 \implies \mathbf{x = 5.000}$</p>
+                                <p class="text-amber-300 pt-1">2. Kembalikan ke persamaan $y$:</p>
+                                <p class="bg-slate-800 p-2 rounded-lg">$y = 2(5.000) + 3.000 = \mathbf{13.000}$</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4 Langkah Baku Metode Substitusi -->
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                <h3 class="text-xl font-extrabold text-slate-900 mb-2">🧭 Peta Konsep: 4 Langkah Sistematis Metode Substitusi</h3>
+                <p class="text-sm text-slate-500 mb-6">Gunakan alur berpikir 4 langkah berikut setiap kali menyelesaikan SPLDV dengan metode substitusi:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-indigo-50/70 border border-indigo-200 rounded-2xl p-5 space-y-2">
+                        <span class="inline-block bg-indigo-600 text-white text-xs font-extrabold px-2.5 py-1 rounded-lg">LANGKAH 1</span>
+                        <h4 class="font-bold text-indigo-950 text-base">Isolasi Satu Variabel</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Pilih salah satu persamaan (cari yang paling sederhana), lalu ubah bentuknya menjadi <strong>$x = \dots$</strong> atau <strong>$y = \dots$</strong>.
+                        </p>
+                    </div>
+
+                    <div class="bg-teal-50/70 border border-teal-200 rounded-2xl p-5 space-y-2">
+                        <span class="inline-block bg-teal-600 text-white text-xs font-extrabold px-2.5 py-1 rounded-lg">LANGKAH 2</span>
+                        <h4 class="font-bold text-teal-950 text-base">Substitusi ke Persamaan Lain</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Masukkan bentuk eksplisit dari Langkah 1 ke dalam <strong>persamaan yang satunya</strong> (jangan dimasukkan kembali ke persamaan asal!).
+                        </p>
+                    </div>
+
+                    <div class="bg-amber-50/70 border border-amber-200 rounded-2xl p-5 space-y-2">
+                        <span class="inline-block bg-amber-600 text-white text-xs font-extrabold px-2.5 py-1 rounded-lg">LANGKAH 3</span>
+                        <h4 class="font-bold text-amber-950 text-base">Selesaikan PLSV</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Gunakan sifat distributif dan operasi aljabar satu variabel untuk menemukan nilai bilangan dari variabel pertama tersebut.
+                        </p>
+                    </div>
+
+                    <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-5 space-y-2">
+                        <span class="inline-block bg-emerald-600 text-white text-xs font-extrabold px-2.5 py-1 rounded-lg">LANGKAH 4</span>
+                        <h4 class="font-bold text-emerald-950 text-base">Substitusi Balik & Cek</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Masukkan nilai variabel yang sudah ditemukan ke persamaan Langkah 1 untuk memperoleh nilai variabel kedua, lalu tuliskan HP $\{(x, y)\}$.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- TAB 2: STRATEGI MEMILIH VARIABEL & 3 TIPE TINGKAT KESULITAN         -->
+        <!-- =================================================================== -->
+        <section id="tab-anatomi" class="tab-content hidden fade-in space-y-8">
+            
+            <!-- Game Pemantik: Pilih Variabel Target Terbaik -->
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 sm:p-8 space-y-5">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-extrabold px-3 py-1 rounded-full">KETERAMPILAN KUNCI</span>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">Strategi Cerdas: Variabel Mana yang Paling Mudah Diisolasi?</h2>
+                        <p class="text-sm text-slate-500">Kunci kecepatan metode substitusi adalah memilih variabel dengan <strong>koefisien $1$ atau $-1$</strong> agar terhindar dari pecahan rumit.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <!-- Soal Strategi 1 -->
+                    <div class="border border-slate-200 rounded-2xl p-5 bg-slate-50 space-y-3">
+                        <p class="text-xs font-bold text-slate-500 uppercase">Sistem Persamaan A</p>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200 font-mono text-sm font-bold text-slate-800">
+                            (1) $3x + 4y = 18$<br>
+                            (2) $x - 2y = 4$
+                        </div>
+                        <p class="text-xs text-slate-700 font-semibold">Pilihan paling cerdas untuk diubah adalah:</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="checkStrategy(this, false, 'Jika mengubah $3x$ dari Pers (1), akan muncul pecahan $x = \\frac{18-4y}{3}$. Kurang efisien!')" class="py-2 px-2.5 bg-white border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-bold cursor-pointer">$x$ dari Pers (1)</button>
+                            <button onclick="checkStrategy(this, true, 'Tepat sekali! Koefisien $x$ pada Pers (2) adalah $1$, sehingga langsung menjadi $x = 2y + 4$ tanpa pecahan!')" class="py-2 px-2.5 bg-white border border-teal-300 text-teal-800 hover:bg-teal-600 hover:text-white rounded-lg text-xs font-bold cursor-pointer">$x$ dari Pers (2)</button>
+                        </div>
+                        <p class="strat-fb hidden text-xs p-3 rounded-xl leading-relaxed"></p>
+                    </div>
+
+                    <!-- Soal Strategi 2 -->
+                    <div class="border border-slate-200 rounded-2xl p-5 bg-slate-50 space-y-3">
+                        <p class="text-xs font-bold text-slate-500 uppercase">Sistem Persamaan B</p>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200 font-mono text-sm font-bold text-slate-800">
+                            (1) $5x - y = 13$<br>
+                            (2) $2x + 3y = 12$
+                        </div>
+                        <p class="text-xs text-slate-700 font-semibold">Pilihan paling cerdas untuk diubah adalah:</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="checkStrategy(this, true, 'Cerdas! Koefisien $y$ pada Pers (1) adalah $-1$. Cukup pindahkan $-y$ ke kanan dan $13$ ke kiri: $y = 5x - 13$!')" class="py-2 px-2.5 bg-white border border-teal-300 text-teal-800 hover:bg-teal-600 hover:text-white rounded-lg text-xs font-bold cursor-pointer">$y$ dari Pers (1)</button>
+                            <button onclick="checkStrategy(this, false, 'Jika memilih $2x$ dari Pers (2), akan muncul bentuk pecahan $x = \\frac{12-3y}{2}$.')" class="py-2 px-2.5 bg-white border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-bold cursor-pointer">$x$ dari Pers (2)</button>
+                        </div>
+                        <p class="strat-fb hidden text-xs p-3 rounded-xl leading-relaxed"></p>
+                    </div>
+
+                    <!-- Soal Strategi 3 -->
+                    <div class="border border-slate-200 rounded-2xl p-5 bg-slate-50 space-y-3">
+                        <p class="text-xs font-bold text-slate-500 uppercase">Sistem Persamaan C</p>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200 font-mono text-sm font-bold text-slate-800">
+                            (1) $2x + 6y = 14$<br>
+                            (2) $3x + 5y = 17$
+                        </div>
+                        <p class="text-xs text-slate-700 font-semibold">Tidak ada koefisien $1$, trik terbaiknya adalah:</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="checkStrategy(this, true, 'Luar biasa! Semua suku Pers (1) genap, sehingga bisa dibagi 2 menjadi $x + 3y = 7 \\implies x = 7 - 3y$!')" class="py-2 px-2.5 bg-white border border-teal-300 text-teal-800 hover:bg-teal-600 hover:text-white rounded-lg text-xs font-bold cursor-pointer">Bagi Pers (1) dgn 2</button>
+                            <button onclick="checkStrategy(this, false, 'Bisa dilakukan, tetapi menghasilkan pecahan $\\frac{17-5y}{3}$. Menyederhanakan Pers (1) jauh lebih mudah!')" class="py-2 px-2.5 bg-white border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-bold cursor-pointer">Isolasi $x$ Pers (2)</button>
+                        </div>
+                        <p class="strat-fb hidden text-xs p-3 rounded-xl leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 Tipe Variasi Bentuk Soal Substitusi -->
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 sm:p-8 space-y-6">
+                <div>
+                    <h3 class="text-xl font-extrabold text-slate-900">📚 3 Variasi Bentuk Soal SPLDV dalam Metode Substitusi</h3>
+                    <p class="text-sm text-slate-500">Pelajari bagaimana cara menangani setiap variasi bentuk persamaan secara runtut.</p>
+                </div>
+
+                <div class="space-y-5">
+                    <!-- Tipe 1 -->
+                    <div class="border border-emerald-200 rounded-2xl p-5 bg-emerald-50/30 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full">TIPE 1 • BENTUK EKSPLISIT LANGSUNG</span>
+                            <span class="text-xs text-emerald-800 font-semibold">Salah satu variabel sudah terpisah</span>
+                        </div>
+                        <p class="text-sm text-slate-700"><strong>Contoh:</strong> Tentukan penyelesaian dari $y = 3x - 2$ dan $2x + 5y = 24$.</p>
+                        <div class="bg-white p-4 rounded-xl border border-emerald-200 font-mono text-xs sm:text-sm space-y-1 text-slate-800">
+                            <p>• Karena $y$ sudah terpisah ($y = 3x - 2$), langsung substitusikan ke persamaan kedua:</p>
+                            <p>$2x + 5\mathbf{(3x - 2)} = 24$</p>
+                            <p>$2x + 15x - 10 = 24 \implies 17x = 34 \implies \mathbf{x = 2}$</p>
+                            <p>• Substitusi balik $x = 2$: $y = 3\mathbf{(2)} - 2 = 6 - 2 = \mathbf{4}$. Jadi HP = $\{(2, 4)\}$.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tipe 2 -->
+                    <div class="border border-indigo-200 rounded-2xl p-5 bg-indigo-50/30 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">TIPE 2 • BENTUK IMPLISIT DENGAN KOEFISIEN 1 ATAU -1</span>
+                            <span class="text-xs text-indigo-800 font-semibold">Perlu 1 langkah pindah ruas</span>
+                        </div>
+                        <p class="text-sm text-slate-700"><strong>Contoh:</strong> Tentukan penyelesaian dari $4x - y = 11$ dan $3x + 2y = 11$.</p>
+                        <div class="bg-white p-4 rounded-xl border border-indigo-200 font-mono text-xs sm:text-sm space-y-1 text-slate-800">
+                            <p>• Ubah persamaan pertama: $4x - y = 11 \implies \mathbf{y = 4x - 11}$</p>
+                            <p>• Substitusi ke persamaan kedua: $3x + 2\mathbf{(4x - 11)} = 11$</p>
+                            <p>$3x + 8x - 22 = 11 \implies 11x = 33 \implies \mathbf{x = 3}$</p>
+                            <p>• Substitusi balik $x = 3$: $y = 4\mathbf{(3)} - 11 = 12 - 11 = \mathbf{1}$. Jadi HP = $\{(3, 1)\}$.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tipe 3 -->
+                    <div class="border border-amber-200 rounded-2xl p-5 bg-amber-50/30 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded-full">TIPE 3 • SEMUA KOEFISIEN BUKAN 1 (BENTUK PECAHAN)</span>
+                            <span class="text-xs text-amber-800 font-semibold">Trik mengalikan penyebut</span>
+                        </div>
+                        <p class="text-sm text-slate-700"><strong>Contoh:</strong> Tentukan penyelesaian dari $2x + 3y = 12$ dan $3x - 2y = 5$.</p>
+                        <div class="bg-white p-4 rounded-xl border border-amber-200 font-mono text-xs sm:text-sm space-y-1 text-slate-800">
+                            <p>• Isolasi $x$ dari persamaan pertama: $2x = 12 - 3y \implies \mathbf{x = \frac{12 - 3y}{2}}$</p>
+                            <p>• Substitusi ke persamaan kedua: $3\left(\mathbf{\frac{12 - 3y}{2}}\right) - 2y = 5$</p>
+                            <p>• <em>Trik Cerdas:</em> Kalikan seluruh ruas dengan $2$ agar penyebut hilang!</p>
+                            <p>$3(12 - 3y) - 4y = 10 \implies 36 - 9y - 4y = 10 \implies -13y = -26 \implies \mathbf{y = 2}$</p>
+                            <p>• Substitusi balik $y = 2$: $x = \frac{12 - 3(2)}{2} = \frac{6}{2} = \mathbf{3}$. Jadi HP = $\{(3, 2)\}$.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- TAB 3: LAB INTERAKTIF SUSUN LANGKAH SUBSTITUSI                      -->
+        <!-- =================================================================== -->
+        <section id="tab-lab" class="tab-content hidden fade-in space-y-8">
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 sm:p-8 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="bg-teal-100 text-teal-800 text-xs font-extrabold px-3 py-1 rounded-full">LABORATORIUM INTERAKTIF</span>
+                        <h2 class="text-2xl font-extrabold text-slate-900 mt-1">Simulasi Penyelesaian Substitusi Langkah-demi-Langkah</h2>
+                        <p class="text-sm text-slate-500">Pilih studi kasus di bawah ini, lalu klik tombol tahap demi tahap untuk memandu diskusi kelas!</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="loadLabCase(0)" id="lab-case-0" class="lab-case-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-teal-700 text-white cursor-pointer">Kasus 1: Tiket Bioskop</button>
+                        <button onclick="loadLabCase(1)" id="lab-case-1" class="lab-case-btn px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 cursor-pointer">Kasus 2: Umur Kakak-Adik</button>
+                        <button onclick="loadLabCase(2)" id="lab-case-2" class="lab-case-btn px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 cursor-pointer">Kasus 3: Tanda Negatif (-)</button>
+                    </div>
+                </div>
+
+                <!-- Area Tampilan Lab -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Kiri: Deskripsi Soal & Pemodelan -->
+                    <div class="lg:col-span-5 bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-4">
+                        <h3 id="lab-title" class="font-extrabold text-lg text-slate-900"></h3>
+                        <p id="lab-story" class="text-sm text-slate-700 leading-relaxed bg-white p-4 rounded-xl border border-slate-200"></p>
+                        <div class="bg-indigo-950 text-white p-4 rounded-xl space-y-1.5 font-mono text-xs sm:text-sm">
+                            <p class="text-amber-300 font-sans font-bold text-xs uppercase">Model Matematika SPLDV:</p>
+                            <p id="lab-eq1"></p>
+                            <p id="lab-eq2"></p>
+                        </div>
+                    </div>
+
+                    <!-- Kanan: Tahapan Interaktif -->
+                    <div class="lg:col-span-7 space-y-3" id="lab-steps-container">
+                        <!-- Diisi oleh JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- TAB 4: DETEKTIF KESALAHAN & LATIHAN TERBIMBING                      -->
+        <!-- =================================================================== -->
+        <section id="tab-jebakan" class="tab-content hidden fade-in space-y-8">
+            
+            <!-- Bagian 4A: Detektif Kesalahan Umum Siswa -->
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 sm:p-8 space-y-6">
+                <div>
+                    <span class="bg-rose-100 text-rose-800 text-xs font-extrabold px-3 py-1 rounded-full">HATI-HATI JEBAKAN ALJABAR!</span>
+                    <h2 class="text-2xl font-extrabold text-slate-900 mt-1">🕵️ Detektif Matematika: Temukan Kesalahan dalam Pengerjaan Berikut!</h2>
+                    <p class="text-sm text-slate-500">Banyak siswa keliru pada tanda kurung dan tanda negatif saat substitusi. Analisis pekerjaan "Budi" di bawah ini!</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Kasus Kesalahan 1 -->
+                    <div class="border border-rose-200 rounded-2xl p-5 bg-rose-50/40 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-rose-900 text-sm">Kasus #1: Substitusi di Depan Tanda Minus $(-)$</span>
+                            <span class="text-xs bg-rose-200 text-rose-900 px-2.5 py-0.5 rounded-full font-bold">Jebakan Klasik</span>
+                        </div>
+                        <p class="text-xs text-slate-700">Diketahui: $y = 2x + 5$ dan $4x - y = 7$. Budi menuliskan:</p>
+                        <div class="bg-white p-3.5 rounded-xl border border-rose-200 font-mono text-xs space-y-1 text-slate-800">
+                            <p>Baris 1: $4x - y = 7$</p>
+                            <p class="bg-rose-100 text-rose-900 px-1 rounded">Baris 2: $4x - 2x + 5 = 7$</p>
+                            <p>Baris 3: $2x = 2 \implies x = 1$</p>
+                        </div>
+                        <button onclick="toggleFix('fix-1')" class="text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-xl transition cursor-pointer">
+                            🔍 Lihat Letak Kesalahan & Perbaikannya
+                        </button>
+                        <div id="fix-1" class="hidden bg-emerald-50 border border-emerald-200 p-3.5 rounded-xl text-xs text-emerald-950 space-y-1">
+                            <p><strong>Kesalahan Budi:</strong> Lupa memberi <strong>tanda kurung</strong> saat mengganti $y$, sehingga tanda minus hanya mengenai $2x$, bukan $+5$!</p>
+                            <p class="font-mono bg-white p-2 rounded border border-emerald-200">
+                                <strong>Seharusnya:</strong> $4x - \mathbf{(2x + 5)} = 7 \implies 4x - 2x - 5 = 7 \implies 2x = 12 \implies \mathbf{x = 6}$!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Kasus Kesalahan 2 -->
+                    <div class="border border-rose-200 rounded-2xl p-5 bg-rose-50/40 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-rose-900 text-sm">Kasus #2: Substitusi ke Persamaan yang Sama</span>
+                            <span class="text-xs bg-rose-200 text-rose-900 px-2.5 py-0.5 rounded-full font-bold">Jebakan Logika</span>
+                        </div>
+                        <p class="text-xs text-slate-700">Diketahui: (1) $x + y = 10$ dan (2) $2x + y = 16$. Budi menuliskan:</p>
+                        <div class="bg-white p-3.5 rounded-xl border border-rose-200 font-mono text-xs space-y-1 text-slate-800">
+                            <p>Dari (1): $y = 10 - x$</p>
+                            <p class="bg-rose-100 text-rose-900 px-1 rounded">Lalu dimasukkan lagi ke (1): $x + (10 - x) = 10$</p>
+                            <p>Hasilnya: $10 = 10$ (Budi bingung mencari nilai $x$)</p>
+                        </div>
+                        <button onclick="toggleFix('fix-2')" class="text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-xl transition cursor-pointer">
+                            🔍 Lihat Letak Kesalahan & Perbaikannya
+                        </button>
+                        <div id="fix-2" class="hidden bg-emerald-50 border border-emerald-200 p-3.5 rounded-xl text-xs text-emerald-950 space-y-1">
+                            <p><strong>Kesalahan Budi:</strong> Jika bentuk $y = 10 - x$ diambil dari Persamaan (1), maka wajib disubstitusikan ke <strong>Persamaan (2)</strong>!</p>
+                            <p class="font-mono bg-white p-2 rounded border border-emerald-200">
+                                <strong>Seharusnya:</strong> $2x + \mathbf{(10 - x)} = 16 \implies x + 10 = 16 \implies \mathbf{x = 6}$ dan $\mathbf{y = 4}$.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bagian 4B: Latihan Terbimbing (Fill-in-the-blank Interaktif) -->
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 sm:p-8 space-y-6">
+                <div>
+                    <span class="bg-teal-100 text-teal-800 text-xs font-extrabold px-3 py-1 rounded-full">LATIHAN TERBIMBING (SCAFFOLDING)</span>
+                    <h2 class="text-2xl font-extrabold text-slate-900 mt-1">✍️ Lengkapi Langkah Substitusi Berikut!</h2>
+                    <p class="text-sm text-slate-500">Isilah kotak kosong di bawah ini untuk melatih ketelitian aljabar sebelum mengerjakan evaluasi mandiri.</p>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4">
+                    <p class="text-sm sm:text-base text-slate-800 font-semibold">
+                        Soal Kontekstual: Jumlah dua bilangan adalah $20$ ($x + y = 20$). Bilangan pertama ($x$) sama dengan $3$ kali bilangan kedua ($x = 3y$). Tentukan nilai $x$ dan $y$!
+                    </p>
+
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 space-y-3 font-mono text-xs sm:text-sm">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span>1. Substitusi $x = 3y$ ke $x + y = 20 \implies$</span>
+                            <input type="text" id="fill-1" placeholder="misal: 3y" class="w-24 text-center border-2 border-indigo-300 rounded-lg py-1 px-2 font-bold text-indigo-900 focus:outline-none focus:border-indigo-600">
+                            <span>$+ y = 20$</span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span>2. Gabungkan suku sejenis $\implies$</span>
+                            <input type="text" id="fill-2" placeholder="misal: 4y" class="w-24 text-center border-2 border-indigo-300 rounded-lg py-1 px-2 font-bold text-indigo-900 focus:outline-none focus:border-indigo-600">
+                            <span>$= 20 \implies y =$</span>
+                            <input type="number" id="fill-3" placeholder="?" class="w-20 text-center border-2 border-indigo-300 rounded-lg py-1 px-2 font-bold text-indigo-900 focus:outline-none focus:border-indigo-600">
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span>3. Substitusi balik ke $x = 3y \implies x = 3($</span>
+                            <input type="number" id="fill-4" placeholder="?" class="w-16 text-center border-2 border-indigo-300 rounded-lg py-1 px-2 font-bold text-indigo-900 focus:outline-none focus:border-indigo-600">
+                            <span>$) \implies x =$</span>
+                            <input type="number" id="fill-5" placeholder="?" class="w-20 text-center border-2 border-indigo-300 rounded-lg py-1 px-2 font-bold text-indigo-900 focus:outline-none focus:border-indigo-600">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-3">
+                        <button onclick="checkGuidedExercise()" class="bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl shadow transition cursor-pointer">
+                            ✅ Periksa Isian Saya
+                        </button>
+                        <span id="guided-feedback" class="text-xs sm:text-sm font-bold"></span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+            <p>Modul Pendalaman SPLDV: <strong>Metode Substitusi</strong> • Matematika SMP/MTs</p>
+            <p>Disusun oleh <strong class="text-teal-800">Lusia Adven Ningrum</strong></p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT INTERAKTIF -->
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-teal-700', 'text-white', 'shadow-sm', 'font-bold');
+                btn.classList.add('bg-slate-100', 'text-slate-600', 'font-semibold');
+                const badge = btn.querySelector('span:first-child');
+                if (badge) {
+                    badge.classList.remove('bg-white/20');
+                    badge.classList.add('bg-slate-200', 'text-slate-700');
+                }
+            });
+
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const active = document.getElementById('nav-' + tabId);
+            active.classList.remove('bg-slate-100', 'text-slate-600', 'font-semibold');
+            active.classList.add('bg-teal-700', 'text-white', 'shadow-sm', 'font-bold');
+            const badge = active.querySelector('span:first-child');
+            if (badge) {
+                badge.classList.remove('bg-slate-200', 'text-slate-700');
+                badge.classList.add('bg-white/20');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function togglePresentationMode() {
+            document.body.classList.toggle('presentation-mode');
+            const btn = document.getElementById('btn-presentasi');
+            btn.querySelector('span').textContent = document.body.classList.contains('presentation-mode') ? '🖥️ Mode Normal' : '🖥️ Mode Proyektor';
+        }
+
+        // Tab 1: Visual Substitution
+        function triggerVisualSubstitution() {
+            const box = document.getElementById('visual-eq-box');
+            const steps = document.getElementById('visual-sub-steps');
+            box.innerHTML = '$3x + \\color{#34d399}{\\boxed{(2x + 3.000)}} = 28.000$';
+            steps.classList.remove('hidden');
+            document.getElementById('btn-sim-sub').textContent = '✅ Variabel y Berhasil Diganti!';
+            if (window.renderMathInElement) {
+                renderMathInElement(box, { delimiters: [{left: '$', right: '$', display: false}] });
+                renderMathInElement(steps, { delimiters: [{left: '$', right: '$', display: false}] });
+            }
+        }
+
+        // Tab 2: Strategy Checker
+        function checkStrategy(btn, isCorrect, message) {
+            const card = btn.closest('.bg-slate-50');
+            const fb = card.querySelector('.strat-fb');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-950', 'bg-amber-100', 'text-amber-950');
+            if (isCorrect) {
+                fb.classList.add('bg-emerald-100', 'text-emerald-950');
+                fb.innerHTML = '✅ ' + message;
+            } else {
+                fb.classList.add('bg-amber-100', 'text-amber-950');
+                fb.innerHTML = '💡 ' + message;
+            }
+            if (window.renderMathInElement) {
+                renderMathInElement(fb, { delimiters: [{left: '$', right: '$', display: false}] });
+            }
+        }
+
+        // Tab 3: Lab Interaktif
+        const labCases = [
+            {
+                title: "Kasus 1: Tiket Bioskop Pelajar & Reguler",
+                story: "Dina membeli 1 tiket pelajar ($x$) dan 2 tiket reguler ($y$) seharga Rp115.000. Sedangkan Raka membeli 3 tiket pelajar ($x$) dan 1 tiket reguler ($y$) seharga Rp120.000.",
+                eq1: "Persamaan (1): $x + 2y = 115.000$",
+                eq2: "Persamaan (2): $3x + y = 120.000$",
+                steps: [
+                    {
+                        label: "Tahap 1: Isolasi variabel berkoefisien 1",
+                        hint: "Pilih $x$ dari Persamaan (1) karena koefisiennya $1$.",
+                        math: "$x + 2y = 115.000 \\implies \\mathbf{x = 115.000 - 2y}$"
+                    },
+                    {
+                        label: "Tahap 2: Substitusi ke Persamaan (2)",
+                        hint: "Ganti $x$ pada $3x + y = 120.000$ dengan $(115.000 - 2y)$.",
+                        math: "$3(115.000 - 2y) + y = 120.000$"
+                    },
+                    {
+                        label: "Tahap 3: Selesaikan persamaan satu variabel ($y$)",
+                        hint: "Kalikan $3$ ke dalam kurung, lalu kumpulkan suku sejenis.",
+                        math: "$345.000 - 6y + y = 120.000 \\implies -5y = -225.000 \\implies \\mathbf{y = 45.000}$"
+                    },
+                    {
+                        label: "Tahap 4: Substitusi balik untuk mencari $x$",
+                        hint: "Masukkan $y = 45.000$ ke persamaan Tahap 1.",
+                        math: "$x = 115.000 - 2(45.000) = 115.000 - 90.000 = \\mathbf{25.000}$.<br>Jadi tiket pelajar Rp25.000 dan reguler Rp45.000."
+                    }
+                ]
+            },
+            {
+                title: "Kasus 2: Selisih & Jumlah Umur",
+                story: "Jumlah umur Kakak ($k$) dan Adik ($a$) saat ini adalah 34 tahun. Umur Kakak adalah 6 tahun lebih tua daripada umur Adik.",
+                eq1: "Persamaan (1): $k + a = 34$",
+                eq2: "Persamaan (2): $k = a + 6$",
+                steps: [
+                    {
+                        label: "Tahap 1: Identifikasi bentuk eksplisit",
+                        hint: "Persamaan (2) sudah berbentuk $k = a + 6$, siap langsung disubstitusikan!",
+                        math: "$\\mathbf{k = a + 6}$"
+                    },
+                    {
+                        label: "Tahap 2: Substitusi ke Persamaan (1)",
+                        hint: "Gantikan huruf $k$ pada $k + a = 34$ dengan $(a + 6)$.",
+                        math: "$(a + 6) + a = 34$"
+                    },
+                    {
+                        label: "Tahap 3: Hitung umur Adik ($a$)",
+                        hint: "Jumlahkan variabel $a$ dan pindahkan konstanta $6$.",
+                        math: "$2a + 6 = 34 \\implies 2a = 28 \\implies \\mathbf{a = 14}$ tahun"
+                    },
+                    {
+                        label: "Tahap 4: Hitung umur Kakak ($k$)",
+                        hint: "Masukkan $a = 14$ ke $k = a + 6$.",
+                        math: "$k = 14 + 6 = \\mathbf{20}$ tahun. Jadi Kakak 20 tahun dan Adik 14 tahun."
+                    }
+                ]
+            },
+            {
+                title: "Kasus 3: Hati-Hati Tanda Negatif (-)",
+                story: "Selisih dua bilangan adalah 9 ($x - y = 9$). Jika dua kali bilangan pertama dikurangi tiga kali bilangan kedua hasilnya adalah 13 ($2x - 3y = 13$).",
+                eq1: "Persamaan (1): $x - y = 9$",
+                eq2: "Persamaan (2): $2x - 3y = 13$",
+                steps: [
+                    {
+                        label: "Tahap 1: Nyatakan $x$ dalam $y$ dari Persamaan (1)",
+                        hint: "Pindahkan $-y$ ke ruas kanan menjadi $+y$.",
+                        math: "$x - y = 9 \\implies \\mathbf{x = y + 9}$"
+                    },
+                    {
+                        label: "Tahap 2: Substitusi ke Persamaan (2)",
+                        hint: "Ganti $x$ pada $2x - 3y = 13$ dengan $(y + 9)$.",
+                        math: "$2(y + 9) - 3y = 13$"
+                    },
+                    {
+                        label: "Tahap 3: Operasikan aljabar dengan teliti",
+                        hint: "Perhatikan $2y - 3y = -y$.",
+                        math: "$2y + 18 - 3y = 13 \\implies -y = 13 - 18 \\implies -y = -5 \\implies \\mathbf{y = 5}$"
+                    },
+                    {
+                        label: "Tahap 4: Substitusi balik mencari $x$",
+                        hint: "Masukkan $y = 5$ ke $x = y + 9$.",
+                        math: "$x = 5 + 9 = \\mathbf{14}$. Jadi Himpunan Penyelesaian = $\\{(14, 5)\\}$."
+                    }
+                ]
+            }
+        ];
+
+        function loadLabCase(idx) {
+            document.querySelectorAll('.lab-case-btn').forEach((btn, i) => {
+                if (i === idx) {
+                    btn.classList.remove('bg-slate-100', 'text-slate-700', 'font-semibold');
+                    btn.classList.add('bg-teal-700', 'text-white', 'font-bold');
+                } else {
+                    btn.classList.remove('bg-teal-700', 'text-white', 'font-bold');
+                    btn.classList.add('bg-slate-100', 'text-slate-700', 'font-semibold');
+                }
+            });
+
+            const data = labCases[idx];
+            document.getElementById('lab-title').textContent = data.title;
+            document.getElementById('lab-story').innerHTML = data.story;
+            document.getElementById('lab-eq1').innerHTML = data.eq1;
+            document.getElementById('lab-eq2').innerHTML = data.eq2;
+
+            const container = document.getElementById('lab-steps-container');
+            container.innerHTML = data.steps.map((s, sIdx) => `
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white">
+                    <button onclick="revealLabStep(${sIdx})" id="lbtn-${sIdx}" class="w-full flex items-center justify-between p-4 bg-slate-50 hover:bg-teal-50/60 text-left transition cursor-pointer">
+                        <div>
+                            <p class="font-bold text-slate-900 text-sm">${s.label}</p>
+                            <p class="text-xs text-slate-500">${s.hint}</p>
+                        </div>
+                        <span class="text-xs font-bold bg-teal-700 text-white px-3 py-1.5 rounded-lg shrink-0">Tampilkan</span>
+                    </button>
+                    <div id="lbody-${sIdx}" class="hidden p-4 border-t border-slate-200 bg-teal-50/30 font-mono text-xs sm:text-sm text-slate-900">
+                        ${s.math}
+                    </div>
+                </div>
+            `).join('');
+
+            if (window.renderMathInElement) {
+                renderMathInElement(document.getElementById('tab-lab'), { delimiters: [{left: '$', right: '$', display: false}] });
+            }
+        }
+
+        function revealLabStep(sIdx) {
+            const body = document.getElementById('lbody-' + sIdx);
+            body.classList.toggle('hidden');
+        }
+
+        // Tab 4: Fix & Guided Exercise
+        function toggleFix(id) {
+            document.getElementById(id).classList.toggle('hidden');
+        }
+
+        function checkGuidedExercise() {
+            const f1 = document.getElementById('fill-1').value.replace(/\s+/g, '').toLowerCase();
+            const f2 = document.getElementById('fill-2').value.replace(/\s+/g, '').toLowerCase();
+            const f3 = parseInt(document.getElementById('fill-3').value);
+            const f4 = parseInt(document.getElementById('fill-4').value);
+            const f5 = parseInt(document.getElementById('fill-5').value);
+
+            const fb = document.getElementById('guided-feedback');
+            if (f1 === '3y' && f2 === '4y' && f3 === 5 && f4 === 5 && f5 === 15) {
+                fb.className = 'text-xs sm:text-sm font-bold text-emerald-700';
+                fb.textContent = '🎉 Sempurna! Semua langkah substitusi kamu benar: y = 5 dan x = 15.';
+            } else {
+                fb.className = 'text-xs sm:text-sm font-bold text-rose-600';
+                fb.textContent = '❌ Masih ada bagian yang kurang tepat. Petunjuk: 3y + y = 4y, sehingga y = 20 / 4 = 5.';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadLabCase(0);
+        });
+    </script>
+</body>
+</html>
